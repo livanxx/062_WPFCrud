@@ -43,13 +43,27 @@ namespace _062_WPFCrud
                 using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
                 {
                     var oPerson = new Model.person();
-                    oPerson.Name = txtNombre.Text;
-                    oPerson.Age = int.Parse(txtEdad.Text);
+                    try
+                    {
+                        oPerson.Name = txtNombre.Text;
+                        oPerson.Age = int.Parse(txtEdad.Text);
+                        if (oPerson.Age > 0)
+                        {
+                            db.person.Add(oPerson);
+                            db.SaveChanges();
 
-                    db.person.Add(oPerson);
-                    db.SaveChanges();
-
-                    MainWindow.StaticMainFrame.Content = new MenuYLista();
+                            MainWindow.StaticMainFrame.Content = new MenuYLista();
+                        }
+                        else 
+                        {
+                            MessageBox.Show("Edad incorrecta");
+                        }
+                    }
+                    catch 
+                    {
+                        MessageBox.Show("Edad incorrecta");
+                    }
+                   
                 }
             }
             else 
@@ -57,13 +71,28 @@ namespace _062_WPFCrud
                 using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
                 {
                     var oPerson = db.person.Find(Id);
-                    oPerson.Name = txtNombre.Text;
-                    oPerson.Age = int.Parse(txtEdad.Text);
+                    try
+                    {
+                        oPerson.Name = txtNombre.Text;
+                        oPerson.Age = int.Parse(txtEdad.Text);
+                        if (oPerson.Age > 0)
+                        {
+                            db.person.Add(oPerson);
+                            db.SaveChanges();
 
-                    db.Entry(oPerson).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                            MainWindow.StaticMainFrame.Content = new MenuYLista();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Edad incorrecta");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Edad incorrecta");
+                    }
 
-                    MainWindow.StaticMainFrame.Content = new MenuYLista();
+                    
                 }
             }
         }
