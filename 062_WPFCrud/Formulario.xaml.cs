@@ -25,13 +25,13 @@ namespace _062_WPFCrud
         {
             InitializeComponent();
             this.Id = Id;
-            if (this.Id != 0) 
+            if (this.Id != 0)
             {
-                using (Model.WPFCrudEntities db = new Model.WPFCrudEntities()) 
+                using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
                 {
                     var oPerson = db.person.Find(this.Id);
                     txtEdad.Text = oPerson.Age.ToString();
-                    txtNombre.Text = oPerson.Name;   
+                    txtNombre.Text = oPerson.Name;
                 }
             }
         }
@@ -54,19 +54,19 @@ namespace _062_WPFCrud
 
                             MainWindow.StaticMainFrame.Content = new MenuYLista();
                         }
-                        else 
+                        else
                         {
                             MessageBox.Show("Edad incorrecta");
                         }
                     }
-                    catch 
+                    catch
                     {
                         MessageBox.Show("Edad incorrecta");
                     }
-                   
+
                 }
             }
-            else 
+            else
             {
                 using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
                 {
@@ -77,7 +77,7 @@ namespace _062_WPFCrud
                         oPerson.Age = int.Parse(txtEdad.Text);
                         if (oPerson.Age > 0)
                         {
-                            db.person.Add(oPerson);
+                            db.Entry(oPerson).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
 
                             MainWindow.StaticMainFrame.Content = new MenuYLista();
@@ -92,7 +92,7 @@ namespace _062_WPFCrud
                         MessageBox.Show("Edad incorrecta");
                     }
 
-                    
+
                 }
             }
         }
