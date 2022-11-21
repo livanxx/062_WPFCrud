@@ -1,18 +1,8 @@
-﻿using _062_WPFCrud.Model;
-using System;
+﻿using _062_WPFCrud.DataAccess.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace _062_WPFCrud
 {
@@ -30,9 +20,9 @@ namespace _062_WPFCrud
         private void Refresh() 
         {
             List<PersonViewModel> lst = new List<PersonViewModel>();
-            using (Model.WPFCrudEntities db = new Model.WPFCrudEntities()) 
+            using (PersonRepository personRepository = new PersonRepository()) 
             {
-                lst = (from d in db.person
+                lst = (from d in personRepository.GetAll()
                        select new PersonViewModel
                        {
                            Name = d.Name,
@@ -54,12 +44,10 @@ namespace _062_WPFCrud
         {
             int Id = (int)((Button)sender).CommandParameter;
 
-            using (Model.WPFCrudEntities db = new Model.WPFCrudEntities()) 
+            using (PersonRepository personRepository = new PersonRepository()) 
             {
-                var oPerson = db.person.Find(Id);
-
-                db.person.Remove(oPerson);
-                db.SaveChanges();
+                var oPerson = personRepository.Get(Id);
+                personRepository.Delete(oPerson);
             }
             Refresh();
         }

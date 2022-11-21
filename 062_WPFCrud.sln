@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "062_WPFCrud", "062_WPFCrud\062_WPFCrud.csproj", "{F83148CA-F9F0-4B36-8357-4E7A98E4786F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "062_WPFCrud.DataAccess", "062_WPFCrud.DataAccess\062_WPFCrud.DataAccess.csproj", "{7D92A656-7B13-424A-8685-338308F60732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F83148CA-F9F0-4B36-8357-4E7A98E4786F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83148CA-F9F0-4B36-8357-4E7A98E4786F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F83148CA-F9F0-4B36-8357-4E7A98E4786F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D92A656-7B13-424A-8685-338308F60732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D92A656-7B13-424A-8685-338308F60732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D92A656-7B13-424A-8685-338308F60732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D92A656-7B13-424A-8685-338308F60732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

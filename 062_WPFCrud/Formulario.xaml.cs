@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using _062_WPFCrud.DataAccess.Context;
+using _062_WPFCrud.DataAccess.Repositories;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace _062_WPFCrud
 {
@@ -27,11 +17,18 @@ namespace _062_WPFCrud
             this.Id = Id;
             if (this.Id != 0)
             {
-                using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
+                using (PersonRepository personRepository = new PersonRepository())
                 {
-                    var oPerson = db.person.Find(this.Id);
-                    txtEdad.Text = oPerson.Age.ToString();
-                    txtNombre.Text = oPerson.Name;
+                    var oPerson = personRepository.Get(this.Id);
+                    if (oPerson != null)
+                    {
+                        txtEdad.Text = oPerson.Age.ToString();
+                        txtNombre.Text = oPerson.Name;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ocurrió un error al cargar los datos.");
+                    }                    
                 }
             }
         }
@@ -40,19 +37,24 @@ namespace _062_WPFCrud
         {
             if (Id == 0)
             {
-                using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
+                using (PersonRepository personRepository = new PersonRepository())
                 {
-                    var oPerson = new Model.person();
+                    var oPerson = new person();
                     try
                     {
                         oPerson.Name = txtNombre.Text;
                         oPerson.Age = int.Parse(txtEdad.Text);
                         if (oPerson.Age > 0)
                         {
-                            db.person.Add(oPerson);
-                            db.SaveChanges();
-
-                            MainWindow.StaticMainFrame.Content = new MenuYLista();
+                            if (personRepository.Insert(oPerson))
+                            {
+                                MainWindow.StaticMainFrame.Content = new MenuYLista();
+                                MessageBox.Show("Cambios guardados correctamente.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ocurrió un error al guardar sus cambios.");
+                            }                          
                         }
                         else
                         {
@@ -63,24 +65,24 @@ namespace _062_WPFCrud
                     {
                         MessageBox.Show("Edad incorrecta");
                     }
-
                 }
             }
             else
             {
-                using (Model.WPFCrudEntities db = new Model.WPFCrudEntities())
+                using (PersonRepository personRepository = new PersonRepository())
                 {
-                    var oPerson = db.person.Find(Id);
+                    var oPerson = personRepository.Get(Id);
                     try
                     {
                         oPerson.Name = txtNombre.Text;
                         oPerson.Age = int.Parse(txtEdad.Text);
                         if (oPerson.Age > 0)
                         {
-                            db.Entry(oPerson).State = System.Data.Entity.EntityState.Modified;
-                            db.SaveChanges();
-
-                            MainWindow.StaticMainFrame.Content = new MenuYLista();
+                            if (personRepository.Update(oPerson))
+                            {
+                                MainWindow.StaticMainFrame.Content = new MenuYLista();
+                                MessageBox.Show("Cambios guardados correctamente.");
+                            }                           
                         }
                         else
                         {
