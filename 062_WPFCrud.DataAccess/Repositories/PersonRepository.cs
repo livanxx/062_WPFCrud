@@ -13,7 +13,7 @@ namespace _062_WPFCrud.DataAccess.Repositories
         }
 
 
-        public person GetPerson()
+        public person GetPersonNamedAlejandro()
         {
             var query = _db.people.FirstOrDefault(person => person.Name == "Alejandro");
             return query;

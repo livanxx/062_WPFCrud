@@ -10,7 +10,7 @@ namespace _062_WPFCrud.DataAccess.Interface
     {
         bool Insert(TEntity entity);
         bool Update(TEntity entity);
-        bool Delete(TEntity entity);
+        bool Delete(int id);
         List<TEntity> GetAll();
         TEntity Get(int id);
     }

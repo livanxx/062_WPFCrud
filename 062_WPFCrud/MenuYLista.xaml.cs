@@ -46,8 +46,7 @@ namespace _062_WPFCrud
 
             using (PersonRepository personRepository = new PersonRepository()) 
             {
-                var oPerson = personRepository.Get(Id);
-                personRepository.Delete(oPerson);
+                personRepository.Delete(Id);
             }
             Refresh();
         }

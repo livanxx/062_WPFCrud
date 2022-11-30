@@ -15,11 +15,13 @@ namespace _062_WPFCrud.DataAccess.Repositories
             this._db = new WPFCrudEntities();
         }
 
-        public bool Delete(TEntity entity)
+        public bool Delete(int id)
         {
             try
             {
-                _db.Set<TEntity>().Remove(entity);
+                var person = _db.Set<TEntity>().Find(id);
+
+                _db.Set<TEntity>().Remove(person);
                 return _db.SaveChanges() > 0;
             }
             catch (Exception ex)
@@ -44,7 +46,7 @@ namespace _062_WPFCrud.DataAccess.Repositories
             {
                 //Hacer algo con la excepción aquí, como por ejemplo, guardarla en algún log
                 return null;
-            }            
+            }
         }
 
         public List<TEntity> GetAll()
